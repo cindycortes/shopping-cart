@@ -15,7 +15,7 @@ class App extends Component {
         
         
         
-        <Footer />
+        <Footer copyright="2019"/>
       </body>
     )
 
