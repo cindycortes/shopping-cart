@@ -28,7 +28,7 @@ class AddItem extends React.Component {
         })
     }
 
-    render() {
+    render() { // still working on this section
         const { products } = this.props
 
         return (
