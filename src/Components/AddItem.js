@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import Product from './Product.js'
 
-
-class AddItem extends React.Component {
+class AddItem extends Component {
     state = {
         quantity: 0,
         productId: 40,
         counterId: 4
+
     }
 
-    handleChange = e => {
-        let {name, value} = e.target
+    handleChange = (e) => {
+        let { name, value } = e.target
         this.setState({
             [name]: value
         })
@@ -28,22 +30,41 @@ class AddItem extends React.Component {
         })
     }
 
-    render() { // still working on this section
+    render() {
         const { products } = this.props
 
         return (
-            <form>
-                <p>
-                    New Todo:
-                    <input 
-                        type="text" 
-                        onChange={this.handleChange}
-                    />
-                    <button type="submit">Submit</button>
-                </p>
-            </form>
+            <div className="container">
+                <form onSubmit={this.handleSubmit} className="align-center">
+                    <div className="form-group">
+                        <label htmlFor="Quantity">Quantity:</label>
+                        <input onChange={this.handleChange} className="form-control" id="Quantity" type="number" name="quantity" />
+                    </div>
+
+                    <div className="form-group">
+                        <label>
+                            Product:
+                    <select onChange={this.handleChange} className="form-control" name="productId">
+                                {products.map(product => {
+                                    return (
+                                        <Product product={product} key={product.id} />
+
+                                    )
+                                })}
+                            </select>
+                        </label>
+                    </div>
+                    <button type="submit" className="btn btn-primary mb-2">Submit</button>
+                </form>
+
+            </div>
         )
     }
 }
 
-export default AddItem;
+AddItem.propTypes = {
+    products: PropTypes.array,
+    addItemToCart: PropTypes.func.isRequired
+}
+
+export default AddItem

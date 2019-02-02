@@ -1,8 +1,9 @@
 import React from 'react';
 
 class CartItem extends React.Component {
+   
     render() {
-        const { item } = this.props
+        let { item } = this.props
         return (
             <div class="collection-item">
                 <div class="row">

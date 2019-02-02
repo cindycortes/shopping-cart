@@ -2,20 +2,13 @@ import React, { Component } from 'react';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import CartItems from './Components/CartItems';
-import CartItem from './Components/CartItem';
 import AddItem from './Components/AddItem';
+import TotalPrice from './Components/TotalPrice';
 
 
 class App extends Component {
 
   state = {
-
-    cartItemsList : [
-
-      { id: 1, product: { id: 40, name: 'Mediocre Iron Watch', priceInCents: 399 }, quantity: 1 },
-      { id: 2, product: { id: 41, name: 'Heavy Duty Concrete Plate', priceInCents: 499 }, quantity: 2 },
-      { id: 3, product: { id: 42, name: 'Intelligent Paper Knife', priceInCents: 1999 }, quantity: 1 }
-    ],
 
     products : [
 
@@ -28,13 +21,28 @@ class App extends Component {
       { id: 46, name: 'Intelligent Leather Clock', priceInCents: 2999 },
       { id: 47, name: 'Ergonomic Bronze Lamp', priceInCents: 40000 },
       { id: 48, name: 'Awesome Leather Shoes', priceInCents: 3990 },
+    ],
+
+    cartItemsList : [
+
+      { id: 1, product: { id: 40, name: 'Mediocre Iron Watch', priceInCents: 399 }, quantity: 1 },
+      { id: 2, product: { id: 41, name: 'Heavy Duty Concrete Plate', priceInCents: 499 }, quantity: 2 },
+      { id: 3, product: { id: 42, name: 'Intelligent Paper Knife', priceInCents: 1999 }, quantity: 1 }
     ]
+
     
   }
+ 
+  totalPrice = () => this.state.cartItemsList.reduce((acc, item) => {
+    return item.product.priceInCents * item.quantity + acc
+  }, 0)
 
-  addToCart = item => { // this method runs synchronously
-    this.setState({
-      cartItemList: [...this.state.cartItemList, item]
+  addItemToCart = item => {
+    this.setState(prevState => {
+      let cartItemList = [...prevState.cartItemList, item]
+      return {
+        cartItemList
+      }
     })
   }
 
@@ -42,12 +50,16 @@ class App extends Component {
 
 
     return (
-      <body>
+      <div>
         <Header />
         <CartItems cartItemList={this.state.cartItemsList}/>
-        <AddItem products ={this.state.products} submitFunction = {this.addToCart} />
+        
+        <TotalPrice totalPrice={this.totalPrice()} /> 
+        <AddItem products={this.state.products} addItemToCart={this.addItemToCart} />
+        
+
         <Footer copyright="2019" />
-      </body>
+      </div>
     )
 
   }
