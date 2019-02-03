@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Product from './Product.js'
+// import Product from './Product.js'
 
 class AddItem extends Component {
     state = {
@@ -35,27 +35,30 @@ class AddItem extends Component {
 
         return (
             <div className="container">
-                <form onSubmit={this.handleSubmit} className="align-center">
-                    <div className="form-group">
-                        <label htmlFor="Quantity">Quantity:</label>
-                        <input onChange={this.handleChange} className="form-control" id="Quantity" type="number" name="quantity" />
-                    </div>
+                <div className="row">
+                    <div className="col-md-12">
+                        <form onSubmit={this.handleSubmit}>
+                            <div className="form-group">
 
-                    <div className="form-group">
-                        <label>
-                            Product:
-                    <select onChange={this.handleChange} className="form-control" name="productId">
-                                {products.map(product => {
-                                    return (
-                                        <Product product={product} key={product.id} />
+                                Select a product:
+                                <select className='form-control' onChange={this.handleItemChange} placeholder=''>
+                                    {products.map((product => {
+                                        return <option value={product.id} key={product.id}>{product.name} ({product.priceInCents / 100})</option>
+                                    }))}
+                                </select>
 
-                                    )
-                                })}
-                            </select>
-                        </label>
+                            </div>
+
+                            <div className="form-group">
+                                Quantity:
+                                <input className="form-control" type="number" onChange={this.handleChange} />
+                            </div>
+
+                            <button type="submit" className="btn btn-primary mb-2">Submit</button>
+                        </form>
+
                     </div>
-                    <button type="submit" className="btn btn-primary mb-2">Submit</button>
-                </form>
+                </div>
 
             </div>
         )

@@ -29,8 +29,6 @@ class App extends Component {
       { id: 2, product: { id: 41, name: 'Heavy Duty Concrete Plate', priceInCents: 499 }, quantity: 2 },
       { id: 3, product: { id: 42, name: 'Intelligent Paper Knife', priceInCents: 1999 }, quantity: 1 }
     ]
-
-    
   }
  
   totalPrice = () => this.state.cartItemsList.reduce((acc, item) => {
@@ -52,11 +50,12 @@ class App extends Component {
     return (
       <div>
         <Header />
+        <br></br>
         <CartItems cartItemList={this.state.cartItemsList}/>
         
-        <TotalPrice totalPrice={this.totalPrice()} /> 
         <AddItem products={this.state.products} addItemToCart={this.addItemToCart} />
         
+        <TotalPrice totalPrice={this.totalPrice()} /> 
 
         <Footer copyright="2019" />
       </div>

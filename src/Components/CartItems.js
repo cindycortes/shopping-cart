@@ -14,13 +14,17 @@ class CartItems extends React.Component {
                 <h1> Cart Items</h1>
                 <div className="list-group">
                     <div className="list-group-item">
+                        
                         <div className="row">
-                            <div className="col-md-8">Product</div>
-                            <div className="col-md-2">Price</div>
-                            <div className="col-md-2">Quantity</div>
+                           
+                            <div className="col-md-8"><h4>Products</h4></div>
+                            <div className="col-md-2"><h4>Price</h4></div>
+                            <div className="col-md-2"><h4>Quantity</h4></div>
                         </div>
                     </div>
+                    
                     {itemsListed}
+                    
                 </div>
                
             </div>
