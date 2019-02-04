@@ -7,7 +7,8 @@ class CartItems extends React.Component {
     render() {
         const { cartItemList } = this.props
         const itemsListed = cartItemList.map(item => <CartItem key={item.id} item={item} />)
-        
+       
+       
 
         return (
             <div className="container">

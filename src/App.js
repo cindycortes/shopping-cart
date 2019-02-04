@@ -50,7 +50,7 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <br></br>
+        
         <CartItems cartItemList={this.state.cartItemsList}/>
         
         <AddItem products={this.state.products} addItemToCart={this.addItemToCart} />

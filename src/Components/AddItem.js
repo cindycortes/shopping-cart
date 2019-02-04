@@ -1,34 +1,28 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-// import Product from './Product.js'
+import Product from './Product.js'
 
 class AddItem extends Component {
-    state = {
-        quantity: 0,
-        productId: 40,
-        counterId: 4
+    constructor(props) {
+        super(props);
+        this.state = {};
 
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange = (e) => {
-        let { name, value } = e.target
-        this.setState({
-            [name]: value
-        })
+    handleItemChange(e) {
+        this.setState({})
     }
 
-    handleSubmit = e => {
-        e.preventDefault();
+    handleQuantityChange(e){
 
-        let newProduct = {
-            product: this.props.products.filter(product => product.id == this.state.productId)[0],
-            quantity: parseInt(this.state.quantity)
-        }
-        this.props.addItemToCart(newProduct)
-        this.setState({
-            counterId: this.state.counterId + 1
-        })
     }
+    handleSubmit(e) {
+        event.preventDefault();
+    }
+
+     
 
     render() {
         const { products } = this.props
@@ -39,19 +33,20 @@ class AddItem extends Component {
                     <div className="col-md-12">
                         <form onSubmit={this.handleSubmit}>
                             <div className="form-group">
-
                                 Select a product:
                                 <select className='form-control' onChange={this.handleItemChange} placeholder=''>
-                                    {products.map((product => {
-                                        return <option value={product.id} key={product.id}>{product.name} ({product.priceInCents / 100})</option>
-                                    }))}
+                                    {products.map(product => {
+                                        return (
+                                            <Product product={product} key={product.id} />
+                                        )
+                                    })} 
                                 </select>
 
                             </div>
 
                             <div className="form-group">
                                 Quantity:
-                                <input className="form-control" type="number" onChange={this.handleChange} />
+                                <input className="form-control" type="number" onChange={this.handleQuantityChange} />
                             </div>
 
                             <button type="submit" className="btn btn-primary mb-2">Submit</button>
@@ -65,9 +60,9 @@ class AddItem extends Component {
     }
 }
 
-AddItem.propTypes = {
-    products: PropTypes.array,
-    addItemToCart: PropTypes.func.isRequired
-}
+// AddItem.propTypes = {
+//     products: PropTypes.array,
+//     addItemToCart: PropTypes.func.isRequired
+// }
 
 export default AddItem
