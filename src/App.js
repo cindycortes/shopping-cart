@@ -31,15 +31,14 @@ class App extends Component {
     ]
   }
  
-  totalPrice = () => this.state.cartItemsList.reduce((acc, item) => {
-    return item.product.priceInCents * item.quantity + acc
+  totalPrice = () => this.state.cartItemsList.reduce((accu, item) => {
+    return item.product.priceInCents * item.quantity + accu
   }, 0)
 
-  addItemToCart = item => {
+  addItemToCart = newItem=> {
     this.setState(prevState => {
-      let cartItemList = [...prevState.cartItemList, item]
       return {
-        cartItemList
+        cartItemsList : [...prevState.cartItemsList, newItem]  
       }
     })
   }

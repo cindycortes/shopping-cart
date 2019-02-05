@@ -3,26 +3,36 @@ import PropTypes from 'prop-types'
 import Product from './Product.js'
 
 class AddItem extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+    state = {
+        quantity: 0,
+        productId: 40,
+        counterId: 4
     }
 
-    handleItemChange(e) {
-        this.setState({})
+    handleChange = e => {
+        let {name, value} = e.target 
+        this.setState ({
+            [name]: value
+        })
     }
 
-    handleQuantityChange(e){
-
+    handleSubmit = e => {
+        e.preventDefault();
+        
+        let addItem = {
+            product:this.props.products.find(product => product.id == this.state.productId),
+            quantity: parseInt(this.state.quantity)
+            
+        }
+        console.log(addItem)
+        this.props.addItemToCart(addItem)
+        this.setState({
+            counterId: this.state.counterId + 1
+        })
     }
-    handleSubmit(e) {
-        event.preventDefault();
-    }
 
-     
+
+
 
     render() {
         const { products } = this.props
@@ -34,19 +44,19 @@ class AddItem extends Component {
                         <form onSubmit={this.handleSubmit}>
                             <div className="form-group">
                                 Select a product:
-                                <select className='form-control' onChange={this.handleItemChange} placeholder=''>
+                                <select className='form-control' onChange={this.handleChange} placeholder='' name="productId">
                                     {products.map(product => {
                                         return (
                                             <Product product={product} key={product.id} />
                                         )
-                                    })} 
+                                    })}
                                 </select>
 
                             </div>
 
                             <div className="form-group">
                                 Quantity:
-                                <input className="form-control" type="number" onChange={this.handleQuantityChange} />
+                                <input className="form-control" type="number" onChange={this.handleChange} name="quantity" />
                             </div>
 
                             <button type="submit" className="btn btn-primary mb-2">Submit</button>
@@ -60,9 +70,9 @@ class AddItem extends Component {
     }
 }
 
-// AddItem.propTypes = {
-//     products: PropTypes.array,
-//     addItemToCart: PropTypes.func.isRequired
-// }
+AddItem.propTypes = {
+    products: PropTypes.array,
+    addItemToCart: PropTypes.func.isRequired 
+}
 
 export default AddItem
